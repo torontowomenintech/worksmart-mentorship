@@ -45,6 +45,12 @@ const createSendToken = (user, statusCode, res) => {
 // Sign up / Login
 
 exports.signup = catchAsync(async (req, res, next) => {
+  if (req.body.role && req.body.role.toLowerCase() === 'admin') {
+    return next(
+      new AppError('Admin accounts cannot be created using this route', 401)
+    );
+  }
+
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,

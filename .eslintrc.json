@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+  "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
@@ -13,6 +13,7 @@
     "no-return-await": "off",
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
+    "eqeqeq": "off",
     "prefer-destructuring": [
       "error",
       {
@@ -26,5 +27,12 @@
         "argsIgnorePattern": "req|res|next|val"
       }
     ]
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true
   }
 }

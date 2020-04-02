@@ -18,8 +18,8 @@ router
 router.get('/mySessions', sessionController.getMySessions);
 
 router.patch(
-  '/approveSession/:sessionId',
+  '/sessionResponse/:sessionId',
   authController.restrictTo('mentor'),
-  sessionController.acceptSession
+  sessionController.acceptRejectSession
 );
 module.exports = router;

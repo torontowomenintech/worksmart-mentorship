@@ -19,6 +19,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     );
   }
 
+  //TODO: Restrict the fields users can update with this route
+
   const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
     runValidators: true,
     new: true
