@@ -3,7 +3,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import PluginTerser from 'terser-webpack-plugin';
-// require('babel-polyfill');
 
 const DEFAULT_ENV = {
   NODE_ENV: 'development'
