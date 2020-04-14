@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { RoleSelect } from './RoleSelect';
+import RoleSelect from './RoleSelect';
+import SignupForm from './SignupForm';
 
 const SignupPage = () => {
   const [role, setRole] = useState<String>('');
 
-  useEffect(() => {
-    console.log(role);
-  }, [role]);
-
   return (
     <main className="signup">
-      <RoleSelect
-        onNewRole={role => {
-          setRole(role);
-        }}
-      />
+      {!role ? (
+        // If no role show the role select component, otherwise show signup form
+        <RoleSelect
+          onNewRole={role => {
+            setRole(role);
+          }}
+        />
+      ) : (
+        <SignupForm goBack={() => setRole('')} role={role} />
+      )}
     </main>
   );
 };

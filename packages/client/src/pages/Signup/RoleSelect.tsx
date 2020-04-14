@@ -1,8 +1,11 @@
 import * as React from 'react';
-export interface RoleSelectProps {
+import { ReactElement } from 'react';
+
+interface Props {
   onNewRole: (role: String) => void;
 }
-export const RoleSelect: React.FC<RoleSelectProps> = ({ onNewRole }) => {
+
+export default function RoleSelect({ onNewRole }: Props): ReactElement {
   const handleInput = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     onNewRole(event.currentTarget.value);
@@ -10,23 +13,23 @@ export const RoleSelect: React.FC<RoleSelectProps> = ({ onNewRole }) => {
 
   return (
     <div className="role-select">
-      <h2>Choose your path</h2>
+      <h1>Choose your path</h1>
       <button
         className="role-select-button"
         value="mentor"
         onClick={handleInput}
       >
-        <span className="role">Mentor</span>
-        <span className="role-description">Nurture future innovators</span>
+        <h2 className="role">Mentor</h2>
+        <p className="role-description">Nurture future innovators</p>
       </button>
       <button
         className="role-select-button"
         value="mentee"
         onClick={handleInput}
       >
-        <span className="role">Mentee</span>
-        <span className="role-description">Enter industry with confidence</span>
+        <h2 className="role">Mentee</h2>
+        <p className="role-description">Enter industry with confidence</p>
       </button>
     </div>
   );
-};
+}
