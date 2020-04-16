@@ -24,22 +24,25 @@ const createSendToken = (user, statusCode, res) => {
     httpOnly: true
   };
   // Require https in production
-  if (process.env.NODE_ENV === 'production') {
-    cookieOptions.secure = true;
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  //   cookieOptions.secure = true;
+  // }
 
-  res.cookie('jwt', token, cookieOptions);
+  // res.cookie('jwt', token, cookieOptions);
 
   // Remove password data
   user.password = undefined;
 
-  res.status(statusCode).json({
-    status: 'success',
-    token,
-    data: {
-      user
-    }
-  });
+  res
+    .status(statusCode)
+    .cookie('jwt', token, cookieOptions)
+    .json({
+      status: 'success',
+      token,
+      data: {
+        user
+      }
+    });
 };
 
 // Sign up / Login

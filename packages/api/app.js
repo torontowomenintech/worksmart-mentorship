@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
@@ -49,6 +50,14 @@ app.use(
     whitelist: []
   })
 );
+
+// Allow cross origin requests
+const corsOptions = {
+  origin: 'http://localhost:8888',
+  credentials: true
+};
+app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
