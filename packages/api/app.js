@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -17,6 +18,12 @@ const sessionRouter = require('./routes/sessionRoutes');
 const app = express();
 
 // 1) GLOBAL MIDDLEWARES
+// Allow cross origin requests
+const corsOptions = {
+  origin: 'http://localhost:8888',
+  credentials: true
+};
+app.use(cors(corsOptions));
 
 // Set security HTTP Headers
 app.use(helmet());
@@ -51,13 +58,8 @@ app.use(
   })
 );
 
-// Allow cross origin requests
-const corsOptions = {
-  origin: 'http://localhost:8888',
-  credentials: true
-};
-app.use(cors(corsOptions));
-app.use(cors(corsOptions));
+//Parse cookies
+app.use(cookieParser());
 
 // Serving static files
 app.use(express.static(`${__dirname}/public`));

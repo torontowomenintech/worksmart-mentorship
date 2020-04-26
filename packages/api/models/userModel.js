@@ -69,6 +69,8 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  refreshToken: String,
+  refreshTokenExpires: Date,
   active: {
     type: Boolean,
     default: true,
@@ -139,7 +141,21 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   return false;
 };
 
-userSchema.methods.createPasswordRefreshToken = function() {
+userSchema.methods.createRefreshToken = function() {
+  const refreshToken = crypto.randomBytes(32).toString('hex');
+
+  this.refreshToken = crypto
+    .createHash('sha256')
+    .update(refreshToken)
+    .digest('hex');
+
+  this.refreshTokenExpires =
+    Date.now() + process.env.JWT_REFRESH_COOKIE_EXPIRES_IN * 60 * 60 * 1000;
+
+  return refreshToken;
+};
+
+userSchema.methods.createPasswordResetToken = function() {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
   this.passwordResetToken = crypto

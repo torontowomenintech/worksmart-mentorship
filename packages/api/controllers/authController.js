@@ -13,37 +13,39 @@ const signToken = id => {
   });
 };
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = catchAsync(async (user, statusCode, res) => {
   const token = signToken(user._id);
+  const refreshToken = user.createRefreshToken();
+
+  await user.save({ validateBeforeSave: false });
 
   const cookieOptions = {
     expires: new Date(
       // Convert from days to milliseconds
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      Date.now() +
+        process.env.JWT_REFRESH_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true
   };
-  // Require https in production
-  // if (process.env.NODE_ENV === 'production') {
-  //   cookieOptions.secure = true;
-  // }
 
-  // res.cookie('jwt', token, cookieOptions);
+  // Require https in production
+  if (process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = true;
+  }
+
+  res.cookie('refreshToken', refreshToken, cookieOptions);
 
   // Remove password data
   user.password = undefined;
 
-  res
-    .status(statusCode)
-    .cookie('jwt', token, cookieOptions)
-    .json({
-      status: 'success',
-      token,
-      data: {
-        user
-      }
-    });
-};
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user
+    }
+  });
+});
 
 // Sign up / Login
 
@@ -87,6 +89,24 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 201, res);
 });
 
+// Refresh JWT
+exports.refreshToken = catchAsync(async (req, res, next) => {
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.cookies.refreshToken)
+    .digest('hex');
+
+  const user = await User.findOne({
+    refreshToken: hashedToken,
+    refreshTokenExpires: { $gt: Date.now() }
+  });
+
+  if (!user) return next(new AppError('Refresh token is no longer valid'));
+
+  // Refresh the current token
+  createSendToken(user, 201, res);
+});
+
 // Update / forgot password
 
 exports.updateMyPassword = catchAsync(async (req, res, next) => {
@@ -115,7 +135,7 @@ exports.forgotMyPassword = catchAsync(async (req, res, next) => {
   }
 
   // Generate reset token
-  const resetToken = user.createPasswordRefreshToken();
+  const resetToken = user.createPasswordResetToken();
 
   await user.save({ validateBeforeSave: false });
 
