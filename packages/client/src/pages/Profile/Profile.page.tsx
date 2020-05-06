@@ -8,7 +8,7 @@ const ProfilePage = () => {
   console.log(user);
 
   return (
-    <div className="profile-page">
+    <main className="profile-page">
       <div className="profile-summary">
         <h1>Your account</h1>
         <div className="profile-summary--img-container">
@@ -20,7 +20,7 @@ const ProfilePage = () => {
         </div>
       </div>
       <ApplicationStatus />
-    </div>
+    </main>
   );
 };
 
