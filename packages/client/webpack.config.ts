@@ -3,6 +3,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import webpack from 'webpack';
 import PluginTerser from 'terser-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 const DEFAULT_ENV = {
   NODE_ENV: 'development'
@@ -59,6 +60,7 @@ export default (_env: any, options: { mode: string }) => {
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
+            'postcss-loader',
             {
               loader: 'sass-loader',
               options: {
@@ -82,6 +84,11 @@ export default (_env: any, options: { mode: string }) => {
       new htmlWebpackPlugin({
         title: 'Web Chat App',
         template: './src/index.html'
+      }),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          postcss: [autoprefixer()]
+        }
       }),
       new webpack.DefinePlugin(ENV)
     ],

@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     maxlength: [500, 'Maximum of 500 characters for bio']
   },
+  pronouns: String,
   role: {
     type: String,
     enum: ['mentor', 'mentee', 'admin'],

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { User } from '../../lib/types';
 import * as Yup from 'yup';
 import API from '../../lib/API';
+import { UserAuth } from '../../lib/types';
 
 interface Props {
   goBack: () => void;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function SignupForm({ goBack, role }: Props): ReactElement {
-  const initialValues: User = {
+  const initialValues: UserAuth = {
     fullName: '',
     email: '',
     password: '',
@@ -37,38 +37,68 @@ export default function SignupForm({ goBack, role }: Props): ReactElement {
       .required('Required')
   });
 
-  const onSubmit = (values: User) => {
+  const onSubmit = (values: UserAuth) => {
     const { fullName, email, password, passwordConfirm } = values;
 
     API.signup({ fullName, email, password, passwordConfirm, role });
   };
 
   return (
-    <>
+    <div className="signup-form-container">
       <button className="back" onClick={goBack}>
         Back
       </button>
+      <span className="text-slogan">
+        The future<span>has female</span>
+      </span>
+      <h1>Sign up</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         <Form>
-          <label htmlFor="fullName">Full Name</label>
-          <Field name="fullName" type="text" />
-          <ErrorMessage name="fullName" />
-          <label htmlFor="email">Email</label>
-          <Field name="email" type="email" />
-          <ErrorMessage name="email" />
-          <label htmlFor="password">Password</label>
-          <Field name="password" type="password" />
-          <ErrorMessage name="password" />
-          <label htmlFor="passwordConfirm">Password Confirm</label>
-          <Field name="passwordConfirm" type="password" />
-          <ErrorMessage name="passwordConfirm" />
-          <button type="submit">Submit</button>
+          <div className="field-container">
+            <label htmlFor="fullName">Full Name</label>
+            <ErrorMessage
+              component="span"
+              className="form-error"
+              name="fullName"
+            />
+            <Field name="fullName" type="text" />
+          </div>
+          <div className="field-container">
+            <label htmlFor="email">Email</label>
+            <ErrorMessage
+              component="span"
+              className="form-error"
+              name="email"
+            />
+            <Field name="email" type="email" />
+          </div>
+          <div className="field-container">
+            <label htmlFor="password">Password</label>
+            <ErrorMessage
+              component="span"
+              className="form-error"
+              name="password"
+            />
+            <Field name="password" type="password" />
+          </div>
+          <div className="field-container">
+            <label htmlFor="passwordConfirm">Password Confirm</label>
+            <ErrorMessage
+              component="span"
+              className="form-error"
+              name="passwordConfirm"
+            />
+            <Field name="passwordConfirm" type="password" />
+          </div>
+          <button type="submit" className="button-primary">
+            Submit
+          </button>
         </Form>
       </Formik>
-    </>
+    </div>
   );
 }

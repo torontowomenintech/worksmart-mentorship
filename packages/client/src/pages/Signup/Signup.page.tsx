@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RoleSelect from './RoleSelect';
 import SignupForm from './SignupForm';
+import './signup.scss';
 
 const SignupPage = () => {
   const [role, setRole] = useState<String>('');

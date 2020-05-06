@@ -1,4 +1,3 @@
-import Utils from './utils';
 import { User } from './types';
 
 class API {
@@ -15,13 +14,30 @@ class API {
     });
   }
 
+  async login({ email, password }: User) {
+    return this.request('post', '/users/login', {
+      email,
+      password
+    });
+  }
+
+  async logout() {
+    return this.request('get', '/users/logout');
+  }
+
+  async refreshToken() {
+    return this.request('post', '/users/refreshToken');
+  }
+
+  async getMe() {
+    return this.request('get', '/users/getMe');
+  }
+
   private async request(
     type: 'get' | 'post' | 'patch',
     url: string,
     data?: object
   ) {
-    const JWT = Utils.getCookie('jwt');
-
     const headers = {
       'Content-Type': 'application/json'
       // authorization: `Bearer ${JWT}`
@@ -32,7 +48,9 @@ class API {
     try {
       let res: any;
       if (type === 'get') {
-        res = await fetch(`${this.prefix}/${url}`, {
+        res = await fetch(`${this.prefix}${this.apiVersion}${url}`, {
+          method: 'GET',
+          credentials: 'include',
           headers
         });
       }
@@ -41,11 +59,14 @@ class API {
         res = await fetch(`${this.prefix}${this.apiVersion}${url}`, {
           method: 'POST',
           body: raw,
+          credentials: 'include',
           headers
         });
       }
 
-      return res!.data;
+      const data = await res.json();
+
+      return data;
     } catch (error) {
       return null;
     }

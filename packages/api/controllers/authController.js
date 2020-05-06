@@ -89,6 +89,22 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 201, res);
 });
 
+exports.logout = (req, res) => {
+  // Replace valid refresh token with placeholder that expires in 10 seconds
+  const expiryDate = new Date();
+  expiryDate.setTime(expiryDate.getTime() + 10 * 1000);
+
+  const cookieOptions = {
+    expires: expiryDate,
+    httpOnly: true
+  };
+
+  res
+    .cookie('refreshToken', 'loggedout', cookieOptions)
+    .status(200)
+    .json({ status: 'success' });
+};
+
 // Refresh JWT
 exports.refreshToken = catchAsync(async (req, res, next) => {
   const hashedToken = crypto

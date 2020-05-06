@@ -15,7 +15,7 @@ export default function RoleSelect({ onNewRole }: Props): ReactElement {
     <div className="role-select">
       <h1>Choose your path</h1>
       <button
-        className="role-select-button"
+        className="role-select-button button-secondary"
         value="mentor"
         onClick={handleInput}
       >
@@ -23,7 +23,7 @@ export default function RoleSelect({ onNewRole }: Props): ReactElement {
         <p className="role-description">Nurture future innovators</p>
       </button>
       <button
-        className="role-select-button"
+        className="role-select-button button-secondary"
         value="mentee"
         onClick={handleInput}
       >

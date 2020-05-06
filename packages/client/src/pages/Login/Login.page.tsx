@@ -1,5 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import LoginForm from './LoginForm';
 
-const LoginPage = () => {};
+import './login.scss';
+import { Redirect } from 'react-router';
+
+const LoginPage = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  if (loggedIn) return <Redirect to="/" />;
+
+  return (
+    <main className="login-page">
+      <LoginForm onLogIn={setLoggedIn} />
+    </main>
+  );
+};
 
 export default LoginPage;
