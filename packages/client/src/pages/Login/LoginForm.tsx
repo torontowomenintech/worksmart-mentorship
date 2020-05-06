@@ -1,6 +1,6 @@
 import React, { ReactElement, Dispatch, SetStateAction, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { User as UserType, UserAuth } from '../../lib/types';
+import { UserAuth } from '../../lib/types';
 import { User } from '../../containers/user.container';
 import * as Yup from 'yup';
 import API from '../../lib/API';
@@ -25,7 +25,7 @@ export default function LoginForm({ onLogIn }: Props): ReactElement {
     password: Yup.string().required('Required')
   });
 
-  const onSubmit = async (values: UserType) => {
+  const onSubmit = async (values: UserAuth) => {
     // Get input values from form
     const { email, password } = values;
 
