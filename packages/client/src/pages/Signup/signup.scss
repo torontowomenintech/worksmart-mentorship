@@ -1,7 +1,6 @@
 @import '../../styles/variables';
 
 .signup {
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +42,7 @@
   .signup-form-container {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
     max-width: 750px;
     background: $grey-darker;
     position: relative;

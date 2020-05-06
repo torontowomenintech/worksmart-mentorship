@@ -37,13 +37,15 @@ const AppRouter = () => {
 
   return (
     <Router history={history}>
-      <Header />
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/signup" exact component={SignupPage} />
-        <Route path="/login" exact component={LoginPage} />
-        <Route path="/profile" exact component={ProfilePage} />
-      </Switch>
+      <div className="layout-wrapper">
+        <Header />
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/signup" exact component={SignupPage} />
+          <Route path="/login" exact component={LoginPage} />
+          <Route path="/profile" exact component={ProfilePage} />
+        </Switch>
+      </div>
     </Router>
   );
 };
