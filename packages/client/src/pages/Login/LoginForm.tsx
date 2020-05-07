@@ -37,8 +37,10 @@ export default function LoginForm({ onLogIn }: Props): ReactElement {
         return setError(true);
       }
 
+      console.log({ token: res.token, ...res.data.user });
+
       // Add user res to container for later use
-      setUser(res);
+      setUser({ token: res.token, ...res.data.user });
 
       onLogIn(true);
     } catch (err) {

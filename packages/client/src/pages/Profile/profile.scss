@@ -1,0 +1,44 @@
+@import '../../styles/variables.scss';
+
+main.profile-page {
+  background: $grey-darker;
+  .profile-summary {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+  }
+  h2 {
+    flex: 0 0 100%;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .profile-summary--img-container {
+    flex: 0 1 145px;
+    margin-right: 20px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .profile-summary--details {
+    h1 {
+      text-transform: uppercase;
+      color: $primary;
+      font-weight: 600;
+      font-size: 36px;
+      font-family: $barlow;
+      margin-bottom: 5px;
+    }
+    span {
+      display: block;
+      margin-bottom: 20px;
+    }
+    button {
+      background: none;
+      text-transform: capitalize;
+      text-decoration: underline;
+      color: #fff;
+      padding: 0;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 export interface UserType {
+  _id: string;
   name: string;
   email: string;
   photo: string;
@@ -10,6 +11,7 @@ export interface UserType {
     description: string;
   };
   role: string;
+  token?: string;
 }
 
 export interface UserAuth {
