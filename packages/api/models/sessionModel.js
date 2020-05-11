@@ -30,6 +30,20 @@ const sessionSchema = new mongoose.Schema({
   confirmedAt: Date
 });
 
+// Populate referenced mentors/mentees
+sessionSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'mentee',
+    select: 'name photo pronouns'
+  });
+  this.populate({
+    path: 'mentor',
+    select: 'name photo pronouns'
+  });
+
+  next();
+});
+
 const Session = mongoose.model('Session', sessionSchema);
 
 module.exports = Session;
