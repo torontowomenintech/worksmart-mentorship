@@ -53,7 +53,7 @@ export default function LoginForm({ onLogIn }: Props): ReactElement {
       <span className="text-slogan">
         The future<span>has female</span>
       </span>
-      <h1>Sign in</h1>
+      <h1>Log in</h1>
       {error && <span className="login-error">Incorrect login details</span>}
       <Formik
         initialValues={initialValues}

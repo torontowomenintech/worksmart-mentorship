@@ -10,8 +10,8 @@ export interface UserType {
     coordinates: [number];
     description: string;
   };
-  role: string;
-  token?: string;
+  role: 'mentor' | 'mentee';
+  token: string;
 }
 
 export interface UserAuth {
@@ -19,4 +19,15 @@ export interface UserAuth {
   email: string;
   password: string;
   passwordConfirm?: string;
+  role?: 'mentor' | 'mentee';
+}
+
+export interface Session {
+  date: Date;
+  mentee: UserType;
+  mentor: UserType;
+  requestedAt: Date;
+  confirmed: boolean;
+  rejected: boolean;
+  confirmedAt: Date;
 }
