@@ -2,13 +2,21 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 
 interface Props {
-  onNewRole: (role: String) => void;
+  onRoleSelect: (role: 'mentor' | 'mentee') => void;
 }
 
-export default function RoleSelect({ onNewRole }: Props): ReactElement {
+export default function RoleSelect({ onRoleSelect }: Props): ReactElement {
   const handleInput = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    onNewRole(event.currentTarget.value);
+
+    if (
+      event.currentTarget.value === 'mentor' ||
+      event.currentTarget.value === 'mentee'
+    ) {
+      onRoleSelect(event.currentTarget.value);
+    } else {
+      console.error('role must be mentor or mentee');
+    }
   };
 
   return (

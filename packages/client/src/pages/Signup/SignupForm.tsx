@@ -6,7 +6,7 @@ import { UserAuth } from '../../lib/types';
 
 interface Props {
   goBack: () => void;
-  role: String;
+  role: 'mentor' | 'mentee';
 }
 
 export default function SignupForm({ goBack, role }: Props): ReactElement {
@@ -51,7 +51,7 @@ export default function SignupForm({ goBack, role }: Props): ReactElement {
       <span className="text-slogan">
         The future<span>has female</span>
       </span>
-      <h1>Sign up</h1>
+      <h1>{role} Sign up</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

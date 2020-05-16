@@ -45,7 +45,7 @@ export default (_env: any, options: { mode: string }) => {
                 experimentalWatchApi: true,
                 allowTsInNodeModules: true,
                 compilerOptions: {
-                  sourceMap: !IS_PROD
+                  sourceMap: true
                 }
               }
             }
@@ -70,8 +70,11 @@ export default (_env: any, options: { mode: string }) => {
           ]
         },
         {
-          test: /\.(png|jpg|gif)$/,
-          use: ['file-loader']
+          test: /\.(png|jpe?g|gif)$/,
+          use: ['file-loader'],
+          options: {
+            name: 'assets/images/[name].[ext]'
+          }
         }
       ]
     },
