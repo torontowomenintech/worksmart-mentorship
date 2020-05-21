@@ -70,11 +70,8 @@ export default (_env: any, options: { mode: string }) => {
           ]
         },
         {
-          test: /\.(png|jpe?g|gif)$/,
-          use: ['file-loader'],
-          options: {
-            name: 'assets/images/[name].[ext]'
-          }
+          test: /\.(png|jpg|gif)$/,
+          use: ['file-loader']
         }
       ]
     },
