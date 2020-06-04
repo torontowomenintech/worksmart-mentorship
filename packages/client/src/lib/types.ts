@@ -1,3 +1,4 @@
+// Types for user model
 export interface UserType {
   _id: string;
   name: string;
@@ -14,6 +15,7 @@ export interface UserType {
   token: string;
 }
 
+// Types for user authorization requests
 export interface UserAuth {
   fullName?: string;
   email: string;
@@ -22,6 +24,7 @@ export interface UserAuth {
   role?: 'mentor' | 'mentee';
 }
 
+// Types for session model
 export interface Session {
   date: Date;
   mentee: UserType;

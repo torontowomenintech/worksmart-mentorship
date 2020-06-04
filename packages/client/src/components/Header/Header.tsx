@@ -7,12 +7,16 @@ import API from '../../lib/API';
 
 const Header = () => {
   const { user, setUser } = User.useContainer();
+
+  // State for mobile menu open/close
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
+      // Send logout request which will remove the current token
       const res = await API.logout();
 
+      // remove user data from state
       if (res.status === 'success') {
         setUser(null);
       }

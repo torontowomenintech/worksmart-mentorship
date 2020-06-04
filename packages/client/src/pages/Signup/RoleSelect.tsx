@@ -9,6 +9,8 @@ export default function RoleSelect({ onRoleSelect }: Props): ReactElement {
   const handleInput = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
+    // Get selected role from user
+    // Role is saved to memory in order to be sent with the signup request on the next page
     if (
       event.currentTarget.value === 'mentor' ||
       event.currentTarget.value === 'mentee'

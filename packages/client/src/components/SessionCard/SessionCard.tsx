@@ -9,9 +9,12 @@ interface Props {
 }
 
 const SessionCard = ({ session, role }: Props) => {
+  // Each session has data for the mentor and mentee
+  // Get user data for the complementary role
   const oppositeRole = role === 'mentor' ? 'mentee' : 'mentor';
   const otherUser = session[oppositeRole];
 
+  // format dates as eg. Sunday February 24, 2020
   const formattedDate = new Date(session.date).toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',

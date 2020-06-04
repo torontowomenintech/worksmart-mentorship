@@ -7,6 +7,7 @@ import { Redirect } from 'react-router';
 const LoginPage = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // Redirect user to home after login
   if (loggedIn) return <Redirect to="/" />;
 
   return (

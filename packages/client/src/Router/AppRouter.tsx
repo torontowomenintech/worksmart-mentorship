@@ -16,6 +16,9 @@ import Footer from '../components/Footer/Footer';
 const AppRouter = () => {
   const { setUser } = User.useContainer();
 
+  // For security purposes authorization tokens are only ever saved to memory and expire after 15 minutes
+  // In order to keep the user logged in a less secure refresh token is stored as a http-only cookie
+  // This token can be sent to the server in order to receive a new authorization token but cannot be used to access protected routes
   const refreshUser = async () => {
     const res = await API.refreshToken();
 
@@ -28,12 +31,11 @@ const AppRouter = () => {
 
   useEffect(() => {
     // Attempt to refresh the user every time the app is reloaded
-
     // Set an interval to refresh the token every 14.5 minutes (30s before token expiry)
     const id = setInterval(async () => {
       const res = await refreshUser();
 
-      // If refresh fails clear the token
+      // If refresh fails end attempts to refresh
       if (!res.token) clearInterval(id);
     }, 14.5 * 60 * 1000);
   }, []);

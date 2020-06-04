@@ -11,6 +11,7 @@ const ApplicationStatus = () => {
   const loadSessions = async () => {
     let res;
 
+    // Get sessions for the current user
     try {
       if (user) {
         res = await API.getMySessions(user.token);
@@ -30,6 +31,8 @@ const ApplicationStatus = () => {
     }
   }, [user]);
 
+  // Each application has a flag for 'rejected' and 'confirmed'
+  // By filtering using these flags we can separate the applications out into "pending", "accepted", and "confirmed"
   const sortApplicationsByStatus = (rejected: boolean, confirmed: boolean) => {
     if (sessions) {
       return sessions.filter(

@@ -9,15 +9,15 @@ const SignupPage = () => {
   const location: any = useLocation();
 
   useEffect(() => {
-    if (location.state.role) {
+    if (location.state?.role) {
       setRole(location.state.role);
     }
   }, []);
 
   return (
     <main className="signup">
+      {/* If no role show the role select component, otherwise show signup form */}
       {!role ? (
-        // If no role show the role select component, otherwise show signup form
         <RoleSelect
           onRoleSelect={role => {
             setRole(role);

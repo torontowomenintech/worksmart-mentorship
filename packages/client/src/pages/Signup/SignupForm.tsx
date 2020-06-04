@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function SignupForm({ goBack, role }: Props): ReactElement {
+  // Initial form values
   const initialValues: UserAuth = {
     fullName: '',
     email: '',
@@ -17,6 +18,7 @@ export default function SignupForm({ goBack, role }: Props): ReactElement {
     passwordConfirm: ''
   };
 
+  // Validate user inputs before submission (will also be validated by the server)
   const validationSchema = Yup.object({
     fullName: Yup.string().required('Required'),
     email: Yup.string()
@@ -37,6 +39,7 @@ export default function SignupForm({ goBack, role }: Props): ReactElement {
       .required('Required')
   });
 
+  // Send request to backend to sign up user
   const onSubmit = (values: UserAuth) => {
     const { fullName, email, password, passwordConfirm } = values;
 

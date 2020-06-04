@@ -7,6 +7,7 @@ import { User } from './containers/user.container';
 
 (async () =>
   ReactDOM.render(
+    // Container for the user data
     <User.Provider>
       <AppRouter />
     </User.Provider>,

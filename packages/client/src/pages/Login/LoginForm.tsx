@@ -18,6 +18,7 @@ export default function LoginForm({ onLogIn }: Props): ReactElement {
     password: ''
   };
 
+  // Validate user inputs
   const validationSchema = Yup.object({
     email: Yup.string()
       .email('Invalid email address')
@@ -37,9 +38,7 @@ export default function LoginForm({ onLogIn }: Props): ReactElement {
         return setError(true);
       }
 
-      console.log({ token: res.token, ...res.data.user });
-
-      // Add user res to container for later use
+      // Save the user data in the container for future use
       setUser({ token: res.token, ...res.data.user });
 
       onLogIn(true);
